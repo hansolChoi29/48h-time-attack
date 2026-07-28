@@ -1,5 +1,7 @@
 package com.spring.inventoryservice.global.exception;
 
+import org.springframework.http.HttpStatus;
+
 public record ApiResponse<T>(
         boolean success,
         int code,
@@ -7,6 +9,7 @@ public record ApiResponse<T>(
         T data
 ) {
     public static <T> ApiResponse<T> success(
+            HttpStatus status,
             String message,
             T data
     ) {

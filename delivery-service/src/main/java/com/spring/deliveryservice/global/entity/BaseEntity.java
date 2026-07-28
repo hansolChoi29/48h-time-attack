@@ -20,6 +20,6 @@ public class BaseEntity {
     private Instant createdAt;
 
     @LastModifiedDate
-    @Column(name = "created_at")
+    @Column(name = "updated_at")
     private Instant updatedAt;
 }
