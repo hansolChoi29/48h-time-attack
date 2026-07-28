@@ -1,0 +1,29 @@
+spring:
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: delivery-service
+              uri: lb://delivery-service
+              predicates:
+                - Path=/api/deliveries/**
+
+            - id: inventory-service
+              uri: lb://inventory-service
+              predicates:
+                - Path=/api/inventories/**
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE

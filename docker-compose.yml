@@ -1,0 +1,40 @@
+# dockercompose : 여러 Docker 컨테이너를 docker-compose.yml 하나로 설정하고 한 번에 실행·종료하게 해주는 도구
+name: 48h-time-attack
+services:
+  postgres:
+    image: postgres:16
+    container_name: time-attack-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: logistics
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d logistics" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: time-attack-rabbitmq
+    ports:
+      - "5672:5672"     # Spring 애플리케이션 연결
+      - "15672:15672"   # RabbitMQ 관리 화면
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "-q", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
+  rabbitmq-data:
