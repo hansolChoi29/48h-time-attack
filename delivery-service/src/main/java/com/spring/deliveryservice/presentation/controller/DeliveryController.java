@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/internal/inventories")
+@RequestMapping("/api/deliveries")
 public class DeliveryController {
     private final DeliveryService deliveryService;
 
-
-    @PostMapping("/reserve")
+    @PostMapping
     public ResponseEntity<ApiResponse<CreateDeliveryResponse>> createDelivery(
             @RequestBody CreateDeliveryRequest createDeliveryRequest
     ) {

@@ -37,4 +37,8 @@ public class Inventory extends BaseEntity {
         inventory.quantity = quantity;
         return inventory;
     }
+
+    public void reserve(int quantity) {
+        this.quantity -= quantity;
+    }
 }

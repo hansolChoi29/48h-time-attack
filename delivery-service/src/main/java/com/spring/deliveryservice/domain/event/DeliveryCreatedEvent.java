@@ -7,6 +7,7 @@ public record DeliveryCreatedEvent(
         UUID userId,
         UUID productId,
         int quantity,
+        String address,
         String status
 ) {
 }
