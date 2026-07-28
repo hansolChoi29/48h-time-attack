@@ -1,4 +1,5 @@
-package com.spring.inventoryservice.global;
+package com.spring.deliveryservice.global.exception;
+
 
 public class BusinessException extends RuntimeException {
     private final ErrorCode errorCode;

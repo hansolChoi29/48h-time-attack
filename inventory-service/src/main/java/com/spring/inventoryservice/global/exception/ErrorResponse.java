@@ -1,4 +1,4 @@
-package com.spring.deliveryservice.global;
+package com.spring.inventoryservice.global.exception;
 
 public record ErrorResponse(
         String code,

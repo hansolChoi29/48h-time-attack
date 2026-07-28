@@ -1,4 +1,4 @@
-package com.spring.inventoryservice.global;
+package com.spring.deliveryservice.global.exception;
 
 import org.springframework.http.HttpStatus;
 
