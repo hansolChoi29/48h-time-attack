@@ -25,4 +25,16 @@ public class Inventory extends BaseEntity {
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
+
+    public static Inventory create(
+            UUID productId,
+            String productName,
+            int quantity
+    ) {
+        Inventory inventory = new Inventory();
+        inventory.productId = productId;
+        inventory.productName = productName;
+        inventory.quantity = quantity;
+        return inventory;
+    }
 }
