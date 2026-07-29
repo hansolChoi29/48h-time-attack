@@ -1,7 +1,9 @@
 package com.spring.inventoryservice.application.service;
 
 
+import com.spring.inventoryservice.application.command.ReleaseCommand;
 import com.spring.inventoryservice.application.command.ReserveCommand;
+import com.spring.inventoryservice.application.result.ReleaseResult;
 import com.spring.inventoryservice.application.result.ReserveResult;
 import com.spring.inventoryservice.domain.entity.Inventory;
 import com.spring.inventoryservice.domain.repository.InventoryRepository;
@@ -45,6 +47,19 @@ public class InventoryService {
         inventory.reserve(reserveCommand.quantity());
 
         return new ReserveResult(
+                inventory.getProductId(),
+                inventory.getQuantity()
+        );
+    }
+
+    @Transactional
+    public ReleaseResult release(ReleaseCommand releaseCommand) {
+        Inventory inventory = inventoryRepository.findByProductId(releaseCommand.productId())
+                .orElseThrow(() -> new BusinessException(ErrorCode.INVENTORY_VALID));
+
+        inventory.release((releaseCommand.quantity()));
+
+        return new ReleaseResult(
                 inventory.getProductId(),
                 inventory.getQuantity()
         );

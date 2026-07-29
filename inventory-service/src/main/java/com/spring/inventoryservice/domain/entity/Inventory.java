@@ -54,4 +54,12 @@ public class Inventory extends BaseEntity {
 
         this.quantity -= requestQuantity;
     }
+
+    public void release(int releaseQuantity) {
+        if (releaseQuantity <= 0) {
+            throw new BusinessException(ErrorCode.INVENTORY_VALID);
+        }
+
+        this.quantity += releaseQuantity;
+    }
 }
