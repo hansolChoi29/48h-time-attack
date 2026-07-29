@@ -43,6 +43,7 @@ public class InventoryService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.INVENTORY_NOT_FOUND));
 
         inventory.reserve(reserveCommand.quantity());
+
         return new ReserveResult(
                 inventory.getProductId(),
                 inventory.getQuantity()
