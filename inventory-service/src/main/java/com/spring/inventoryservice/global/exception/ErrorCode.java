@@ -13,8 +13,12 @@ public enum ErrorCode {
             "INVENTORY_CONFLICT",
             "재고가 이미 있음"
     ),
+    INVENTORY_VALID(
+            HttpStatus.BAD_REQUEST,
+            "INVENTORY_VALID",
+            "차감 수량이 올바르지 않음"
+    ),
     ;
-
 
     private final HttpStatus status;
     private final String code;

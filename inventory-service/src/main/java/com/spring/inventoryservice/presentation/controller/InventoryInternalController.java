@@ -1,11 +1,15 @@
 package com.spring.inventoryservice.presentation.controller;
 
 
+import com.spring.inventoryservice.application.command.ReleaseCommand;
 import com.spring.inventoryservice.application.command.ReserveCommand;
+import com.spring.inventoryservice.application.result.ReleaseResult;
 import com.spring.inventoryservice.application.result.ReserveResult;
 import com.spring.inventoryservice.application.service.InventoryService;
 import com.spring.inventoryservice.global.exception.ApiResponse;
+import com.spring.inventoryservice.presentation.request.ReleaseRequest;
 import com.spring.inventoryservice.presentation.request.ReserveRequest;
+import com.spring.inventoryservice.presentation.response.ReleaseResponse;
 import com.spring.inventoryservice.presentation.response.ReserveResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,6 +47,31 @@ public class InventoryInternalController {
                         HttpStatus.OK,
                         "재고 예약 성공",
                         reserveResponse
+                ));
+    }
+
+    @PostMapping("/release")
+    public ResponseEntity<ApiResponse<ReleaseResponse>> release(
+            @RequestBody ReleaseRequest releaseRequest
+    ) {
+        ReleaseCommand releaseCommand = new ReleaseCommand(
+                releaseRequest.productId(),
+                releaseRequest.quantity()
+        );
+
+        ReleaseResult releaseResult = inventoryService.release(releaseCommand);
+
+        ReleaseResponse releaseResponse = new ReleaseResponse(
+                releaseResult.productId(),
+                releaseResult.quantity()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success(
+                        HttpStatus.OK,
+                        "재고 복구 성공",
+                        releaseResponse
                 ));
     }
 }

@@ -1,6 +1,8 @@
 package com.spring.inventoryservice.domain.entity;
 
 import com.spring.inventoryservice.global.entity.BaseEntity;
+import com.spring.inventoryservice.global.exception.BusinessException;
+import com.spring.inventoryservice.global.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -31,14 +33,33 @@ public class Inventory extends BaseEntity {
             String productName,
             int quantity
     ) {
+        if (quantity <= 0) {
+            throw new BusinessException(ErrorCode.INVENTORY_VALID);
+        }
         Inventory inventory = new Inventory();
         inventory.productId = productId;
         inventory.productName = productName;
         inventory.quantity = quantity;
+
         return inventory;
     }
 
-    public void reserve(int quantity) {
-        this.quantity -= quantity;
+    public void reserve(int requestQuantity) {
+        if (requestQuantity <= 0) {
+            throw new BusinessException(ErrorCode.INVENTORY_VALID);
+        }
+        if (quantity < requestQuantity) {
+            throw new BusinessException(ErrorCode.INVENTORY_VALID);
+        }
+
+        this.quantity -= requestQuantity;
+    }
+
+    public void release(int releaseQuantity) {
+        if (releaseQuantity <= 0) {
+            throw new BusinessException(ErrorCode.INVENTORY_VALID);
+        }
+
+        this.quantity += releaseQuantity;
     }
 }
