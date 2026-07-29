@@ -7,7 +7,14 @@ public enum ErrorCode {
             HttpStatus.NOT_FOUND,
             "INVENTORY_NOT_FOUND",
             "재고를 찾을 수 없습니다."
+    ),
+    INVENTORY_SERVICE_UNAVAILABLE(
+            HttpStatus.NOT_FOUND,
+            "INVENTORY_NOT_FOUND",
+                    "재고를 찾을 수 없습니다."
     );
+
+
     private final HttpStatus status;
     private final String code;
     private final String message;

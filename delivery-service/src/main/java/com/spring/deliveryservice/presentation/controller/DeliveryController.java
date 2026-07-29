@@ -26,15 +26,17 @@ public class DeliveryController {
             @RequestBody CreateDeliveryRequest createDeliveryRequest
     ) {
         CreateDeliveryCommand createdDeliveryCommand = new CreateDeliveryCommand(
+                createDeliveryRequest.userId(),
                 createDeliveryRequest.productId(),
-                createDeliveryRequest.quantity()
+                createDeliveryRequest.quantity(),
+                createDeliveryRequest.address()
         );
 
         CreateDeliveryResult createdDeliveryResult = deliveryService.createDelivery(createdDeliveryCommand);
 
         CreateDeliveryResponse createdDeliveryResponse = new CreateDeliveryResponse(
-                createdDeliveryResult.productId(),
-                createdDeliveryResult.remainingQuantity()
+                createdDeliveryResult.deliveryId(),
+                createdDeliveryResult.status()
         );
 
         return ResponseEntity

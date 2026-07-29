@@ -33,4 +33,20 @@ public class Delivery extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 30)
     private DeliveryStatus status;
+
+    public static Delivery create(
+            UUID userId,
+            UUID productId,
+            int quantity,
+            String address
+    ){
+        Delivery delivery = new Delivery();
+        delivery.userId = userId;
+        delivery.productId = productId;
+        delivery.quantity = quantity;
+        delivery.address = address;
+        delivery.status = DeliveryStatus.CREATED;
+
+        return delivery;
+    }
 }
